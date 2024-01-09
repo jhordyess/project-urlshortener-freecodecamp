@@ -62,7 +62,7 @@ app.get('/api/hello', (_, res) => {
 app.post('/api/shorturl', async (req, res, next) => {
   const { url } = req.body
 
-  const regex = /^(http|https):\/\/([\da-z.-]+)\.([a-z]{2,6})\/?$/
+  const regex = /^(http|https):\/\/([\da-z.-]+)\.([a-z]{2,6})\/?(?:[-a-zA-Z0-9()@:%_\+.~#?&=]*)$/
 
   if (!regex.test(url)) return next({ message: 'invalid url' })
 
@@ -92,7 +92,7 @@ app.get('/api/shorturl/:short_url', async (req, res, next) => {
 
 // Error handling middleware
 app.use((err, _, res, next) => {
-  if (err) res.status(err.status || 500).json({ error: err.message || 'SERVER ERROR' })
+  if (err) res.json({ error: err.message || 'SERVER ERROR' })
   next()
 })
 
