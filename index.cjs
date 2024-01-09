@@ -64,7 +64,7 @@ app.post('/api/shorturl', async (req, res, next) => {
 
   const regex = /^(http|https):\/\/([\da-z.-]+)\.([a-z]{2,6})\/?$/
 
-  if (!regex.test(url)) return next({ message: 'Invalid URL' })
+  if (!regex.test(url)) return next({ message: 'invalid url' })
 
   await createUrl(url, (err, data) => {
     if (err) return next(err)
